@@ -1,0 +1,27 @@
+version: '3.0'
+services:
+  database:
+    container_name: db
+    image: mongo:4.1.13
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - net_A
+  server:
+    container_name: server
+    depends_on:
+      - database
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3003:5000"
+    networks:
+      - net_A
+volumes:
+  mongo-data:
+networks:
+  net_A:
+    driver: bridge
