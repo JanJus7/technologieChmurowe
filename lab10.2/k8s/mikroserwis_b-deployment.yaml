@@ -13,17 +13,30 @@ spec:
         app: mikroserwis-b
     spec:
       containers:
-      - name: mikroserwis-b
-        image: janjus/mikroserwis-b:1.2
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "500m"
-          limits:
-            memory: "1Gi"
-            cpu: "1"
-        ports:
-        - containerPort: 3000
-        env:
-          - name: MONGO_URL
-            value: mongodb://mongo-service:27017/db
+        - name: mikroserwis-b
+          image: janjus/mikroserwis-b:1.2
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-user
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-password
+            - name: MONGO_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: MONGO_URL

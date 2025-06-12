@@ -3,13 +3,15 @@ const { MongoClient } = require("mongodb");
 
 const app = express();
 const PORT = 3000;
-const MONGO_URL = process.env.MONGO_URL || "mongodb://mongo-service:27017";
+const user = process.env.MONGO_USER;
+const pass = process.env.MONGO_PASSWORD;
+const MONGO_URL = `mongodb://${user}:${pass}@mongo-service:27017/db?authSource=admin`;
 
 const DB_NAME = "db";
 
 let db;
 
-MongoClient.connect(MONGO_URL, { useUnifiedTopology: true })
+MongoClient.connect(MONGO_URL)
   .then((client) => {
     db = client.db(DB_NAME);
     console.log("Połączono z MongoDB");

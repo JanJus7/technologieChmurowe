@@ -13,21 +13,31 @@ spec:
         app: mongo
     spec:
       containers:
-      - name: mongo
-        image: mongo:6
-        ports:
-        - containerPort: 27017
-        volumeMounts:
-          - mountPath: /data/db
-            name: mongo-storage
-        resources:
-          requests:
-            memory: "1Gi"
-            cpu: "1"
-          limits:
-            memory: "2Gi"
-            cpu: "2"
+        - name: mongo
+          image: mongo:6
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-storage
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "1"
+            limits:
+              memory: "2Gi"
+              cpu: "2"
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-user
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-password
       volumes:
         - name: mongo-storage
-          persistentVolumeClaim:
-            claimName: mongo-pvc
+          emptyDir: {}
