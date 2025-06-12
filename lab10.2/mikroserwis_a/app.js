@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const app = express();
 const PORT = 3000;
-const B_URL = process.env.B_URL || 'http://localhost:3001';
+const B_URL = process.env.B_URL || 'http://mikroserwis-b-service:3000';
 
 app.get('/proxy', async (req, res) => {
   try {

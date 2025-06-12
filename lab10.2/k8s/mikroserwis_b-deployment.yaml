@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mikroserwis-b
-        image: janjus/mikroserwis_b:1.0
+        image: janjus/mikroserwis-b:1.2
         resources:
           requests:
             memory: "64Mi"

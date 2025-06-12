@@ -3,6 +3,7 @@ kind: PersistentVolume
 metadata:
   name: mongo-pv
 spec:
+  storageClassName: manual
   capacity:
     storage: 1Gi
   accessModes:

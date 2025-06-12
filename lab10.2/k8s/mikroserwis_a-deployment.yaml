@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: mikroserwis-a
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: mikroserwis-a
@@ -13,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mikroserwis-a
-        image: janjus/mikroserwis-a:1.0
+        image: janjus/mikroserwis-a:1.2
         resources:
           requests:
               memory: "64Mi"
